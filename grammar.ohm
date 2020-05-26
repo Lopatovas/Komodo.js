@@ -1,0 +1,24 @@
+ExpressionLanguage {
+    Program = Exp
+    Exp = ArithmeticExp | VariableExp 
+    ArithmeticExp = ArithmeticExp "+" PriExp  -- plus
+           | ArithmeticExp "-" PriExp  -- minus
+           | ArithmeticExp "/" PriExp -- divide
+           | ArithmeticExp "*" PriExp -- multiply
+           | PriExp
+
+    VariableExp = int id -- declaration
+
+    PriExp = "(" Exp ")"  -- paren
+           | number
+
+    number = digit+
+
+    int = "int" ~idrest
+    keyword = int
+    id =  ~keyword letter idrest*
+    idrest = "_" | alnum
+
+    space += comment
+    comment = "#" (~"\n" any)*
+}
